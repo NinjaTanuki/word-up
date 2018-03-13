@@ -54,14 +54,21 @@ function addNewWordSubmission(word) {
     // Do we already have a wordSubmission with this word?
     // TODO 21
     // replace the hardcoded 'false' with the real answer
+    var checkForWord = model.wordSubmissions.filter(x => x.word === word)
+    console.log(checkForWord)
     
-    if (model.wordSubmissions.indexOf(word)!== -1){
+    if (checkForWord.length > 0) {
+
         var alreadyUsed = true;
     }
-    else {
+  
+    else{
+        
         var alreadyUsed = false;
     }
-    console.log(alreadyUsed)
+        
+
+
     // if the word is valid and hasn't already been used, add it
     if (containsOnlyAllowedLetters(word) && alreadyUsed == false) {
         model.wordSubmissions.push({ word: word });
@@ -225,7 +232,7 @@ function wordSubmissionChip(wordSubmission) {
 
     // if we know the status of this word (real word or not), then add a green score or red X
     if (wordSubmission.isRealWord == true) {
-        var scoreChip = $("<span></span>").text(wordScore)
+        var scoreChip = $("<span></span>").text(wordScore(wordSubmission.word))
             .attr("class", "tag tag-sm tag-primary")
         // TODO 17
         // give the scoreChip appropriate text content
